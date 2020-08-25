@@ -1,5 +1,5 @@
 {
-    "name": "laravel-zero/framework",
+    "name": "alande-amorim/laravel-zero-framework",
     "description": "Laravel Zero provides the perfect starting point for your next Laravel Console Application.",
     "keywords": [
         "Laravel Zero",
@@ -11,10 +11,6 @@
     ],
     "homepage": "https://github.com/laravel-zero/framework",
     "license": "MIT",
-    "support": {
-        "issues": "https://github.com/laravel-zero/framework/issues",
-        "source": "https://github.com/laravel-zero/framework"
-    },
     "authors": [
         {
             "name": "Nuno Maduro",
@@ -22,7 +18,6 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
         "illuminate/config": "5.4.*",
         "illuminate/console": "5.4.*",
         "illuminate/container": "5.4.*",
