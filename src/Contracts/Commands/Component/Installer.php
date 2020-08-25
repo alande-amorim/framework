@@ -28,5 +28,5 @@ interface Installer
      *
      * @return bool
      */
-    public function install(InstallCommand $command): bool;
+    public function install(InstallCommand $command);
 }

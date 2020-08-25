@@ -23,9 +23,9 @@ class ComponentProvider extends AbstractComponentProvider
     /**
      * {@inheritdoc}
      */
-    public function register(): void
+    public function register()
     {
-        if (! class_exists(\Illuminate\Database\DatabaseServiceProvider::class)) {
+        if (!class_exists(\Illuminate\Database\DatabaseServiceProvider::class)) {
             return;
         }
 

@@ -29,14 +29,14 @@ abstract class AbstractCommand extends BaseCommand
      *
      * @return void
      */
-    abstract public function handle(): void;
+    abstract public function handle();
 
     /**
      * Returns the application container.
      *
      * @return \Illuminate\Contracts\Container\Container
      */
-    public function getContainer(): Container
+    public function getContainer()
     {
         return $this->getLaravel();
     }
@@ -49,7 +49,7 @@ abstract class AbstractCommand extends BaseCommand
      * @param string $body
      * @param string|null $icon
      */
-    public function notify(string $text, string $body, $icon = null): void
+    public function notify($text, $body, $icon = null)
     {
         $notifier = $this->getContainer()
             ->make(Notifier::class);

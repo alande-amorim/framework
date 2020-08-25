@@ -119,7 +119,7 @@ class Application extends BaseApplication implements ArrayAccess
     protected function getCommandName(InputInterface $input)
     {
         if (($name = parent::getCommandName($input))
-            || (! $defaultCommand = $this->config->get('app.default-command'))
+            || (!$defaultCommand = $this->config->get('app.default-command'))
         ) {
             return $name;
         }
@@ -135,7 +135,7 @@ class Application extends BaseApplication implements ArrayAccess
      *
      * @return $this
      */
-    protected function configure(): Application
+    protected function configure()
     {
         if ($name = $this->config->get('app.name')) {
             $this->setName($name);
@@ -147,12 +147,12 @@ class Application extends BaseApplication implements ArrayAccess
 
         $commands = collect($this->config->get('app.commands'));
 
-        if (! $this->config->get('app.production')) {
+        if (!$this->config->get('app.production')) {
             $commands = $commands->merge($this->commands);
         }
 
         $commands->push($this->config->get('app.default-command'))
-                 ->each(
+            ->each(
                 function ($command) {
                     if ($command) {
                         $this->add($this->container->make($command));
@@ -168,7 +168,7 @@ class Application extends BaseApplication implements ArrayAccess
      *
      * @return $this
      */
-    protected function registerBindings(): Application
+    protected function registerBindings()
     {
         Container::setInstance($this->container);
 
@@ -179,7 +179,7 @@ class Application extends BaseApplication implements ArrayAccess
         $this->container->instance(
             'config',
             new Repository(
-                require BASE_PATH.'/'.'config/config.php'
+                require BASE_PATH . '/' . 'config/config.php'
             )
         );
 
@@ -193,7 +193,7 @@ class Application extends BaseApplication implements ArrayAccess
      *
      * @return $this
      */
-    protected function registerServiceProviders(): Application
+    protected function registerServiceProviders()
     {
         collect($this->providers)
             ->merge($this->components)
@@ -207,8 +207,7 @@ class Application extends BaseApplication implements ArrayAccess
                 if (method_exists($instance, 'boot')) {
                     $instance->boot();
                 }
-            }
-        );
+            });
 
         return $this;
     }
@@ -218,7 +217,7 @@ class Application extends BaseApplication implements ArrayAccess
      *
      * @return $this
      */
-    protected function registerContainerAliases(): Application
+    protected function registerContainerAliases()
     {
         foreach ($this->aliases as $key => $aliases) {
             foreach ($aliases as $alias) {

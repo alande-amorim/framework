@@ -39,7 +39,7 @@ class Renamer extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $this->alert('Renaming the application...');
 
@@ -49,7 +49,7 @@ class Renamer extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure(): void
+    protected function configure()
     {
         $this->addArgument('name', InputArgument::OPTIONAL);
     }
@@ -60,7 +60,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function rename(): Renamer
+    protected function rename()
     {
         $name = $this->asksForApplicationName();
 
@@ -73,7 +73,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function displayWelcomeMessage(): Renamer
+    protected function displayWelcomeMessage()
     {
         return $this;
     }
@@ -105,12 +105,12 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function updateComposer(string $name): Renamer
+    protected function updateComposer(string $name)
     {
         $this->setComposer(
             Str::replaceFirst(
-                '"bin": ["'.$this->getCurrentBinaryName().'"]',
-                '"bin": ["'.$name.'"]',
+                '"bin": ["' . $this->getCurrentBinaryName() . '"]',
+                '"bin": ["' . $name . '"]',
                 $this->getComposer()
             )
         );
@@ -127,9 +127,9 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function renameBinary(string $name): Renamer
+    protected function renameBinary(string $name)
     {
-        rename(BASE_PATH.'/'.$this->getCurrentBinaryName(), BASE_PATH.'/'.$name);
+        rename(BASE_PATH . '/' . $this->getCurrentBinaryName(), BASE_PATH . '/' . $name);
 
         $this->output->writeln("Renaming application to: <info>$name</info>");
 
@@ -143,9 +143,9 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function setComposer(string $composer): Renamer
+    protected function setComposer(string $composer)
     {
-        file_put_contents(BASE_PATH.'/composer.json', $composer);
+        file_put_contents(BASE_PATH . '/composer.json', $composer);
 
         return $this;
     }
@@ -169,9 +169,9 @@ class Renamer extends AbstractCommand
      */
     protected function getComposer(): string
     {
-        $file = BASE_PATH.'/composer.json';
+        $file = BASE_PATH . '/composer.json';
 
-        if (! file_exists($file)) {
+        if (!file_exists($file)) {
             $this->error('composer.json not found.');
             exit(0);
         }

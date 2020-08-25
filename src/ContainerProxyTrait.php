@@ -30,7 +30,7 @@ trait ContainerProxyTrait
      *
      * @return mixed
      */
-    public function __call(string $method, array $parameters)
+    public function __call($method, array $parameters)
     {
         if (is_callable([$this->container, $method])) {
             return call_user_func_array([$this->container, $method], $parameters);
@@ -46,7 +46,7 @@ trait ContainerProxyTrait
      *
      * @return mixed
      */
-    public function __get(string $key)
+    public function __get($key)
     {
         return $this->container->{$key};
     }
@@ -59,7 +59,7 @@ trait ContainerProxyTrait
      *
      * @return void
      */
-    public function __set(string $key, $value): void
+    public function __set($key, $value)
     {
         $this->container->{$key} = $value;
     }
@@ -96,7 +96,7 @@ trait ContainerProxyTrait
      *
      * @return void
      */
-    public function offsetSet($key, $value): void
+    public function offsetSet($key, $value)
     {
         $this->container[$key] = $value;
     }
@@ -108,7 +108,7 @@ trait ContainerProxyTrait
      *
      * @return void
      */
-    public function offsetUnset($key): void
+    public function offsetUnset($key)
     {
         unset($this->container[$key]);
     }

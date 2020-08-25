@@ -27,7 +27,7 @@ abstract class AbstractComponentProvider extends ServiceProvider
      *
      * @return void
      */
-    abstract public function register(): void;
+    abstract public function register();
 
     /**
      * Register the service provider.
@@ -36,7 +36,7 @@ abstract class AbstractComponentProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerServiceProvider(string $providerClass): void
+    protected function registerServiceProvider($providerClass)
     {
         $instance = new $providerClass($this->app);
         if (method_exists($instance, 'register')) {

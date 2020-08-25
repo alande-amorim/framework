@@ -38,7 +38,7 @@ class Installer extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $this->alert('Installing a new component...');
 
@@ -52,11 +52,11 @@ class Installer extends AbstractCommand
      *
      * @return $this
      */
-    public function require(string $package): Installer
+    public function require($package)
     {
         $this->info("Pulling $package...");
 
-        exec('cd '.BASE_PATH." && composer require $package");
+        exec('cd ' . BASE_PATH . " && composer require $package");
 
         return $this;
     }
@@ -64,7 +64,7 @@ class Installer extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure(): void
+    protected function configure()
     {
         $this->addArgument('name', InputArgument::OPTIONAL);
     }
@@ -74,9 +74,9 @@ class Installer extends AbstractCommand
      *
      * @return $this
      */
-    protected function install(): Installer
+    protected function install()
     {
-        if (! $component = $this->argument('name')) {
+        if (!$component = $this->argument('name')) {
             $component = $this->choice(
                 'Please choose the component',
                 $this->getContainer()
@@ -85,7 +85,7 @@ class Installer extends AbstractCommand
             );
         }
 
-        $installerClass = __NAMESPACE__.'\\'.str_replace('/', '\\', ucwords($component, ' / ')).'\Installer';
+        $installerClass = __NAMESPACE__ . '\\' . str_replace('/', '\\', ucwords($component, ' / ')) . '\Installer';
 
         if ((new $installerClass)->install($this)) {
             $this->output->writeln("The component $component installation: <info>✔</info>");

@@ -24,12 +24,12 @@ class Installer implements InstallerContract
     /**
      * {@inheritdoc}
      */
-    public function install(InstallCommand $command): bool
+    public function install(InstallCommand $command)
     {
         $command->require('illuminate/database "5.4.*"');
 
         $command->info('Creating (database/database.sqlite)...');
-        shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
+        shell_exec('cd ' . BASE_PATH . '&& mkdir database && touch database/database.sqlite');
 
         $command->info('Component installed! Usage:');
         $command->comment(

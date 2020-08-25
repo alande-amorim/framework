@@ -23,5 +23,5 @@ interface Finder
      *
      * @return string[]
      */
-    public function find(): array;
+    public function find();
 }

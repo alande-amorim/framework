@@ -25,7 +25,7 @@ class Finder implements FinderContract
      *
      * @return string[]
      */
-    public function find(): array
+    public function find()
     {
         $components = [];
 
@@ -45,9 +45,9 @@ class Finder implements FinderContract
      *
      * @return string[]
      */
-    private function folders(string $dir): array
+    private function folders($dir)
     {
-        return glob($dir.'/*', GLOB_ONLYDIR);
+        return glob($dir . '/*', GLOB_ONLYDIR);
     }
 
     /**
@@ -57,7 +57,7 @@ class Finder implements FinderContract
      *
      * @return string
      */
-    private function getProjectName(string $project): string
+    private function getProjectName($project)
     {
         $parts = explode('/', $project);
 

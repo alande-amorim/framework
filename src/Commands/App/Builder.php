@@ -27,7 +27,7 @@ class Builder extends AbstractCommand
     /**
      * The directory that contains your application builds.
      */
-    const BUILD_PATH = BASE_PATH.'/builds';
+    const BUILD_PATH = BASE_PATH . '/builds';
 
     /**
      * The default build name.
@@ -71,7 +71,7 @@ class Builder extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $this->alert('Building the application...');
 
@@ -79,8 +79,7 @@ class Builder extends AbstractCommand
             $this->build($this->input->getArgument('name') ?: self::BUILD_NAME);
         } else {
             $this->error(
-                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
-                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
+                'Unable to compile a phar because of php\'s security settings. ' . 'phar.readonly must be disabled in php.ini. ' . PHP_EOL . PHP_EOL . 'You will need to edit ' . php_ini_loaded_file() . ' and add or set' . PHP_EOL . PHP_EOL . '    phar.readonly = Off' . PHP_EOL . PHP_EOL . 'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
     }
@@ -88,7 +87,7 @@ class Builder extends AbstractCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure(): void
+    protected function configure()
     {
         $this->addArgument('name', InputArgument::OPTIONAL);
     }
@@ -100,7 +99,7 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function build(string $name): Builder
+    protected function build($name)
     {
         $this->prepare()
             ->compile($name)
@@ -120,15 +119,15 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function compile(string $name): Builder
+    protected function compile($name)
     {
         $this->info('Compiling code...');
 
         $compiler = $this->makeFolder()
             ->getCompiler($name);
 
-        $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $this->structure).'#');
-        $compiler->setStub("#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap/init.php'));
+        $compiler->buildFromDirectory(BASE_PATH, '#' . implode('|', $this->structure) . '#');
+        $compiler->setStub("#!/usr/bin/env php \n" . $compiler->createDefaultStub('bootstrap/init.php'));
 
         return $this;
     }
@@ -140,11 +139,11 @@ class Builder extends AbstractCommand
      *
      * @return \Phar
      */
-    protected function getCompiler(string $name): \Phar
+    protected function getCompiler($name): \Phar
     {
         try {
             return new Phar(
-                self::BUILD_PATH.'/'.$name.'.phar',
+                self::BUILD_PATH . '/' . $name . '.phar',
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
@@ -159,9 +158,9 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function makeFolder(): Builder
+    protected function makeFolder()
     {
-        if (! file_exists(self::BUILD_PATH)) {
+        if (!file_exists(self::BUILD_PATH)) {
             mkdir(self::BUILD_PATH);
         }
 
@@ -175,9 +174,9 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function cleanUp(string $name): Builder
+    protected function cleanUp($name)
     {
-        $file = self::BUILD_PATH."/$name";
+        $file = self::BUILD_PATH . "/$name";
         rename("$file.phar", $file);
 
         return $this;
@@ -190,9 +189,9 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function setPermissions($name): Builder
+    protected function setPermissions($name)
     {
-        $file = self::BUILD_PATH."/$name";
+        $file = self::BUILD_PATH . "/$name";
         chmod($file, 0755);
 
         return $this;
@@ -203,14 +202,14 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function prepare(): Builder
+    protected function prepare()
     {
-        $file = BASE_PATH.'/config/config.php';
+        $file = BASE_PATH . '/config/config.php';
         static::$config = file_get_contents($file);
         $config = include $file;
 
         $config['app']['production'] = true;
-        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
+        file_put_contents($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
 
         $this->info('Moving configuration to production mode...');
 
@@ -222,9 +221,9 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function finish(): Builder
+    protected function finish()
     {
-        file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+        file_put_contents(BASE_PATH . '/config/config.php', static::$config);
 
         static::$config = null;
 
@@ -238,7 +237,7 @@ class Builder extends AbstractCommand
     public function __destruct()
     {
         if (static::$config !== null) {
-            file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+            file_put_contents(BASE_PATH . '/config/config.php', static::$config);
         }
     }
 }
