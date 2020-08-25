@@ -71,7 +71,7 @@ trait ContainerProxyTrait
      *
      * @return bool
      */
-    public function offsetExists($key): bool
+    public function offsetExists($key)
     {
         return isset($this->container[$key]);
     }

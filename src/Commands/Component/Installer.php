@@ -52,7 +52,7 @@ class Installer extends AbstractCommand
      *
      * @return $this
      */
-    public function require($package)
+    public function requiree($package)
     {
         $this->info("Pulling $package...");
 

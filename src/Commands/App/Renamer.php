@@ -85,7 +85,7 @@ class Renamer extends AbstractCommand
      *
      * @return string
      */
-    protected function asksForApplicationName(): string
+    protected function asksForApplicationName()
     {
         if (empty($name = $this->input->getArgument('name'))) {
             $name = $this->ask('What is your application name?');
@@ -105,7 +105,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function updateComposer(string $name)
+    protected function updateComposer($name)
     {
         $this->setComposer(
             Str::replaceFirst(
@@ -127,7 +127,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function renameBinary(string $name)
+    protected function renameBinary($name)
     {
         rename(BASE_PATH . '/' . $this->getCurrentBinaryName(), BASE_PATH . '/' . $name);
 
@@ -143,7 +143,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function setComposer(string $composer)
+    protected function setComposer($composer)
     {
         file_put_contents(BASE_PATH . '/composer.json', $composer);
 
@@ -155,7 +155,7 @@ class Renamer extends AbstractCommand
      *
      * @return string
      */
-    protected function getCurrentBinaryName(): string
+    protected function getCurrentBinaryName()
     {
         $composer = $this->getComposer();
 
@@ -167,7 +167,7 @@ class Renamer extends AbstractCommand
      *
      * @return string
      */
-    protected function getComposer(): string
+    protected function getComposer()
     {
         $file = BASE_PATH . '/composer.json';
 

@@ -26,7 +26,7 @@ class Installer implements InstallerContract
      */
     public function install(InstallCommand $command)
     {
-        $command->require('illuminate/database "5.4.*"');
+        $command->requiree('illuminate/database "5.4.*"');
 
         $command->info('Creating (database/database.sqlite)...');
         shell_exec('cd ' . BASE_PATH . '&& mkdir database && touch database/database.sqlite');

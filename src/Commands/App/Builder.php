@@ -139,7 +139,7 @@ class Builder extends AbstractCommand
      *
      * @return \Phar
      */
-    protected function getCompiler($name): \Phar
+    protected function getCompiler($name)
     {
         try {
             return new Phar(
